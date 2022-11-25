@@ -11,6 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+
         // one to one relationship
 
     // public function post(){
@@ -20,6 +21,12 @@ class User extends Authenticatable
     public function posts(){
 
         return $this->hasMany(Post::class);
+    }
+    public function roles(){
+        return $this->belongsToMany(Role::class);
+    }
+    public function address(){
+        return $this->hasOne(Address::class);
     }
 
     /**

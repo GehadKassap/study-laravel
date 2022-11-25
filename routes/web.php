@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Address;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,3 +84,30 @@ Route::get("getall" , function(){
     //       echo $post->title ."<br>";
     //     }
     });
+// crud for one to one relationship
+    Route::get("insert_one_to_one" , function(){
+        $user = User::find(1);
+        $address = new Address(["address"=>"giza , dokki 1"]);
+        $user->address()->save($address);
+        return true;
+     });
+
+     Route::get("update_one_to_one" , function(){
+        $address = Address::whereUserId(1)->first(); //it will retrun an object
+        $address->address = "updated location ";
+        $address->save();
+         return true;
+    });
+
+
+    Route::get("read_one_to_one" , function(){
+        $user = User::find(1);
+        return $user->address->address;//dokki
+    });
+
+
+    Route::get("delete_one_to_one" , function(){
+        $user = User::find(1);
+        $user->address()->delete();
+        return true;
+   });
