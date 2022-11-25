@@ -23,7 +23,11 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
     public function roles(){
-        return $this->belongsToMany(Role::class);
+        // here belongsToMany() method in case the pivot table is not following
+        //the naming convention of laravel we pass the 2nd parameter as table name
+        // and the foreign id as 3rd and 4th parameter
+        //belongsToMany(Role::class, "users_roles" ,"user_id" , "role_id")
+        return $this->belongsToMany(Role::class)->withPivot("created_at");
     }
     public function address(){
         return $this->hasOne(Address::class);
