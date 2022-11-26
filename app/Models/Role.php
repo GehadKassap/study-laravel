@@ -12,4 +12,8 @@ class Role extends Model
     public function users(){
         return $this->belongsToMany(User::class);
     }
+
+    public static function scopeGetAll($query){
+        return $query->orderBy("id" , "desc")->get();
+    }
 }

@@ -11,10 +11,13 @@ class Post extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ["title" , "desc"];
+    protected $fillable = ["title" , "desc","user_id"];
     // protected $dates = ['deleted_at'];
     // one to one relationship
     public function user(){
         return $this->belongsTo(User::class);
     }
 }
+
+
+

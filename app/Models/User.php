@@ -62,4 +62,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // accessor
+    public function getNameAttribute($val){
+        return strtoupper($val);
+    }
 }

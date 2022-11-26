@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string("title");
             $table->text("desc");
             $table->text("image")->nullable();
+            $table->unsignedBigInteger("user_id");
+            $table->foreign("user_id")->references("id")->on("users");
             $table->timestamps();
         });
     }

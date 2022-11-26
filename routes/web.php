@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Address;
-
+use App\Models\Role;
+use Carbon\Carbon;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -116,3 +117,58 @@ Route::get("delete_one_to_one" , function(){
 });
 
 // one to many relationship crud operation
+/*
+this relation will refer to user has many posts
+and the post will be belongs to specific user.
+
+*/
+
+Route::get("insert_one_to_many" , function(){
+    $user = User::find(1);
+     $post = new Post([
+        "title" => "title relation2",
+        "desc" =>"desc with many to many relation2"
+     ]);
+       $user->posts()->save($post);
+     return true;
+ });
+
+ Route::get("read_one_to_many" , function(){
+    $user = User::find(1);
+    dd($user->posts);//return collection of objects
+});
+
+
+Route::get("update_one_to_many" , function(){
+      $user = User::find(1);
+      $user->posts()->whereId(1)->update([
+        "title" => "updated laravel"
+    ]);
+      return "done";
+ });
+
+ Route::get("delete_one_to_many" , function(){
+    $user = User::find(1);
+    $user->posts()->whereUserId(1)->delete(); //it will be soft deleted cuz we enable soft delete in model
+    return "deleted";
+});
+
+// Dealing with dates
+Route::get("dates" , function(){
+    $date = new \DateTime();
+    echo $date->format('m-d-Y') .'<hr>';
+    echo Carbon::now();
+
+  });
+
+
+//   accessors and muators
+Route::get("getname" , function(){
+    $user =   User::find(1);
+    echo $user->name;
+ });
+
+ Route::get("queryscope" , function(){
+    $roles = Role::GetAll();
+    dd($roles);
+ });
