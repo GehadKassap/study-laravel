@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Address;
 use App\Models\Role;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -171,4 +172,16 @@ Route::get("getname" , function(){
  Route::get("queryscope" , function(){
     $roles = Role::GetAll();
     dd($roles);
+ });
+
+
+
+//Deal with sessions
+ Route::get("session" , function(Request $request){
+    //put value in session
+    // $request->session()->put(["gehad" =>true , "hatem" => false]);
+    //get value from session
+    // return $request->session()->all();
+    // flashing
+    return $request->session()->flash();
  });
